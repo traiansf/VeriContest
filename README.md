@@ -6,40 +6,34 @@ natural-language problem statements and the plain Rust solutions accepted by the
 online judge. Specifications, Verus proofs, metadata (`tags`), testcases, and
 tooling have been removed.
 
+This branch keeps only the 10 problems used in the model-effort experiments:
+cf1669D, cf1772B, cf1921A, cf2070C, lc172, lc704, lc1406, lc1431, lc1572 and
+lc3100.
+
 The solutions are grouped into one crate per source:
 
 ```text
-leetcode/                 # library crate, 722 problems
+leetcode/                 # library crate, 6 problems
   src/lib.rs              # declares one module per problem
-  src/lc1004/
+  src/lc1406/
     description.md        # problem statement (also the module's rustdoc)
     mod.rs                # solution: `impl Solution { ... }`
-codeforces/               # binary crate, 285 problems
-  src/bin/cf1006C/
+codeforces/               # binary crate, 4 problems
+  src/bin/cf1921A/
     description.md        # problem statement
     main.rs               # complete stdin/stdout program
 ```
-
-Both the main benchmark problems and the `extended/` problems are included. The
-extended set has the problems that accept more than one valid output or that use
-`&mut` interfaces. `cf306A` appears in both sets with different solutions, so
-the extended one is kept as `cf306A_alt`.
 
 ## Building and running
 
 ```sh
 cargo build --workspace --release
-printf "5\n1 3 1 1 4\n" | ./target/release/cf1006C   # prints 5
+./target/release/cf1921A < input.txt
 ```
 
 LeetCode solutions are plain functions. Call them as
-`leetcode::lc1004::Solution::longest_ones(...)`, or browse the statements with
+`leetcode::lc1406::Solution::stone_game_iii(...)`, or browse the statements with
 `cargo doc -p leetcode --open`.
-
-Some LeetCode solutions call `vstd` helpers (`str::unicode_len`,
-`str::get_char`, `Vec::set`). Those modules import small plain-Rust stand-ins
-from `leetcode/src/verus_compat.rs`, so the solution bodies stay exactly as they
-were.
 
 ## License
 
