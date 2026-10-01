@@ -3,7 +3,7 @@
 pub struct Solution;
 
 impl Solution {
-    pub fn find_max_average(nums: Vec<i32>, k: i32) -> (i64, i32)
+    pub fn find_max_average(nums: Vec<i32>, k: i32) -> f64
     {
         let n = nums.len();
         let k_usize = k as usize;
@@ -24,6 +24,6 @@ impl Solution {
             }
             j = j + 1;
         }
-        (max_sum, k)
+        max_sum as f64 / k as f64
     }
 }
