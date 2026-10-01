@@ -1,12 +1,11 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
 	pub fn winner_of_game(colors: String) -> bool {
-		let len = colors.as_str().unicode_len();
+		let colors_chars: Vec<char> = colors.chars().collect();
+		let len = colors_chars.len();
 		if len < 3 {
 			return false;
 		}
@@ -16,9 +15,9 @@ impl Solution {
 		let mut bob: i32 = 0;
 
 		while i + 1 < len {
-			let left = colors.as_str().get_char(i - 1);
-			let mid = colors.as_str().get_char(i);
-			let right = colors.as_str().get_char(i + 1);
+			let left = colors_chars[i - 1];
+			let mid = colors_chars[i];
+			let right = colors_chars[i + 1];
 			if left == 'A' && mid == 'A' && right == 'A' {
 				alice = alice + 1;
 			}

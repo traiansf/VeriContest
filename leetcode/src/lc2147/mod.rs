@@ -1,20 +1,19 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
     pub fn number_of_ways(corridor: String) -> i32 {
+        let corridor_chars: Vec<char> = corridor.chars().collect();
         let mod_num: u128 = 1_000_000_007;
-        let len = corridor.as_str().unicode_len();
+        let len = corridor_chars.len();
         let mut seat_count: usize = 0;
         let mut plants: usize = 0;
         let mut ways: u128 = 1;
         let mut i: usize = 0;
 
         while i < len {
-            let c = corridor.as_str().get_char(i);
+            let c = corridor_chars[i];
             if c == 'S' {
                 if seat_count >= 2 && seat_count % 2 == 0 {
 					let sep = plants + 1;

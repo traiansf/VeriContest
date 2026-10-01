@@ -1,18 +1,17 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
     pub fn minimum_steps(s: String) -> i64 {
-        let len = s.as_str().unicode_len();
+        let s_chars: Vec<char> = s.chars().collect();
+        let len = s_chars.len();
         let mut i: usize = 0;
         let mut ones: i64 = 0;
         let mut steps: i64 = 0;
 
         while i < len {
-            let c = s.as_str().get_char(i);
+            let c = s_chars[i];
             if c == '1' {
                 ones = ones + 1;
             } else {

@@ -1,14 +1,12 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
-    fn is_first_at(s: &String, p: usize) -> bool {
+    fn is_first_at(s: &[char], p: usize) -> bool {
         let mut q: usize = 0;
         while q < p {
-            if s.as_str().get_char(q) == s.as_str().get_char(p) {
+            if s[q] == s[p] {
                 return false;
             }
             q += 1;
@@ -17,7 +15,8 @@ impl Solution {
     }
 
     pub fn residue_prefixes(s: String) -> i32 {
-        let n = s.as_str().unicode_len();
+        let s: Vec<char> = s.chars().collect();
+        let n = s.len();
         let mut ans: i32 = 0;
         let mut i: usize = 0;
         while i < n {

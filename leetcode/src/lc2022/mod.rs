@@ -1,7 +1,5 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
@@ -34,9 +32,7 @@ impl Solution {
             {
                 let idx: usize = i * n as usize + j;
                 let val = original[idx];
-                let mut row = result[i].clone();
-                row.set(j, val);
-                result.set(i, row);
+                result[i][j] = val;
                 j += 1;
             }
             i += 1;

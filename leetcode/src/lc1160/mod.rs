@@ -1,13 +1,11 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
     pub fn count_characters(words: Vec<String>, chars: String) -> i32 {
-        let chars_str = chars.as_str();
-        let chars_len = chars_str.unicode_len();
+        let chars_str: Vec<char> = chars.chars().collect();
+        let chars_len = chars_str.len();
         let mut chars_count: Vec<i32> = Vec::new();
         let mut i = 0;
         
@@ -18,17 +16,17 @@ impl Solution {
 
         i = 0;
         while i < chars_len {
-            let c = chars_str.get_char(i);
+            let c = chars_str[i];
             let idx = (c as u32 - 97) as usize;
-            chars_count.set(idx, chars_count[idx] + 1);
+            chars_count[idx] = chars_count[idx] + 1;
             i += 1;
         }
 
         let mut sum: i32 = 0;
         let mut k = 0;
         while k < words.len() {
-            let word_str = words[k].as_str();
-            let word_len = word_str.unicode_len();
+            let word_str: Vec<char> = words[k].chars().collect();
+            let word_len = word_str.len();
             
             let mut word_count: Vec<i32> = Vec::new();
             let mut j = 0;
@@ -39,9 +37,9 @@ impl Solution {
 
             j = 0;
             while j < word_len {
-                let c = word_str.get_char(j);
+                let c = word_str[j];
                 let idx = (c as u32 - 97) as usize;
-                word_count.set(idx, word_count[idx] + 1);
+                word_count[idx] = word_count[idx] + 1;
                 j += 1;
             }
 

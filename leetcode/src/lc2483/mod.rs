@@ -1,19 +1,18 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
 	pub fn best_closing_time(customers: String) -> i32 {
-		let len = customers.as_str().unicode_len();
+		let customers_chars: Vec<char> = customers.chars().collect();
+		let len = customers_chars.len();
 		let mut i: usize = 0;
 		let mut score: i32 = 0;
 		let mut best_score: i32 = 0;
 		let mut best_hour: usize = 0;
 
 		while i < len {
-			let c = customers.as_str().get_char(i);
+			let c = customers_chars[i];
 			if c == 'Y' {
 				score = score + 1;
 			} else {

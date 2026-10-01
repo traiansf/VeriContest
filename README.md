@@ -36,10 +36,28 @@ LeetCode solutions are plain functions. Call them as
 `leetcode::lc1004::Solution::longest_ones(...)`, or browse the statements with
 `cargo doc -p leetcode --open`.
 
-Some LeetCode solutions call `vstd` helpers (`str::unicode_len`,
-`str::get_char`, `Vec::set`). Those modules import small plain-Rust stand-ins
-from `leetcode/src/verus_compat.rs`, so the solution bodies stay exactly as they
-were.
+## Differences from the benchmark's `code.rs`
+
+The judge-accepted code was never stored separately. The benchmark's `code.rs`
+already has the Verus-friendly form, and neither its git history nor the
+[Hugging Face release](https://huggingface.co/datasets/Gax-c/VeriContest) keeps
+another version. The solutions here are `code.rs` (LeetCode) and `main.rs`
+(Codeforces) with these changes:
+
+- Every LeetCode module starts with `#![doc = include_str!("description.md")]`
+  and, when missing, `pub struct Solution;`. Codeforces programs only get the
+  `doc` line.
+- 16 LeetCode solutions called `vstd` helpers that don't exist in plain Rust.
+  They were rewritten without changing the algorithm:
+  - `s.as_str().unicode_len()` / `s.as_str().get_char(i)` became a
+    `Vec<char>` collected once from the string, then `.len()` / `[i]`: lc242,
+    lc520, lc551, lc944, lc1160, lc2038, lc2147, lc2483, lc2486, lc2546,
+    lc2575, lc2914, lc2938, lc3803.
+  - `v.set(i, x)` became `v[i] = x` (lc1160). In lc566 and lc2022, the
+    clone-row, `set`, write-back sequence became `result[i][j] = x`.
+
+  All 16 pass the benchmark's positive test cases (`testcases.jsonl`, 2,977
+  cases).
 
 ## License
 

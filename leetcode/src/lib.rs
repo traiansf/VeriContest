@@ -1,7 +1,5 @@
 //! LeetCode problems: one module per problem, with the problem statement as module docs.
 
-mod verus_compat;
-
 pub mod lc1;
 pub mod lc7;
 pub mod lc9;

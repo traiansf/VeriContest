@@ -1,13 +1,13 @@
 #![doc = include_str!("description.md")]
 
-use crate::verus_compat::*;
-
 pub struct Solution;
 
 impl Solution {
     pub fn is_anagram(s: String, t: String) -> bool {
-        let s_len = s.as_str().unicode_len();
-        let t_len = t.as_str().unicode_len();
+        let s_chars: Vec<char> = s.chars().collect();
+        let t_chars: Vec<char> = t.chars().collect();
+        let s_len = s_chars.len();
+        let t_len = t_chars.len();
         if s_len != t_len {
             return false;
         }
@@ -19,14 +19,14 @@ impl Solution {
         }
         i = 0;
         while i < s_len {
-            let c = s.as_str().get_char(i);
+            let c = s_chars[i];
             let idx = (c as u32 - 97) as usize;
             cnt[idx] = cnt[idx] + 1;
             i += 1;
         }
         i = 0;
         while i < t_len {
-            let c = t.as_str().get_char(i);
+            let c = t_chars[i];
             let idx = (c as u32 - 97) as usize;
             cnt[idx] = cnt[idx] - 1;
             i += 1;
